@@ -21,10 +21,10 @@ class AuthDataProvider extends StateNotifier<UserAuthModel> {
   Future<void> getUser() async {
     try {
       final user = await FirestoreService().getUser();
-
+      log("user $user");
       state = state.copyWith(user: user);
     } catch (e) {
-      log("error in adding user to firestore $e");
+      log("error in getting user from firestore $e");
     }
   }
 

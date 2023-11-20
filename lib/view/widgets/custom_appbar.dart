@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ui_practice/constants/login_page_consts.dart';
 import 'package:ui_practice/view_model/auht_data_provider.dart';
 
+const dummyUrl =
+    "https://firebasestorage.googleapis.com/v0/b/practice-a07be.appspot.com/o/Build_With_Innovation%2Fuser_pic%2Fdummy_id_123%2F2150771113.jpg?alt=media&token=742cc0bd-b5d4-4272-9ae2-f254eed53a06";
+
 class CustomAppbar extends ConsumerWidget implements PreferredSizeWidget {
   const CustomAppbar({super.key}) : preferredSize = const Size.fromHeight(95);
   @override
@@ -10,7 +13,7 @@ class CustomAppbar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentUser = ref.watch(authDataProvider).user!;
+    final currentUser = ref.watch(authDataProvider).user;
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.symmetric(
@@ -22,7 +25,8 @@ class CustomAppbar extends ConsumerWidget implements PreferredSizeWidget {
           children: [
             CircleAvatar(
               radius: 25,
-              backgroundImage: NetworkImage(currentUser.image),
+              //     backgroundImage: NetworkImage(currentUser.image),
+              backgroundImage: NetworkImage(dummyUrl),
               backgroundColor: Colors.grey.withOpacity(0.5),
             ),
             const SizedBox(
@@ -31,7 +35,7 @@ class CustomAppbar extends ConsumerWidget implements PreferredSizeWidget {
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const Text('Good Morning'),
               Text(
-                currentUser.username,
+                currentUser != null ? currentUser.username : 'John Doe',
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               )
